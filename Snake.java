@@ -12,11 +12,23 @@ public class Snake extends Actor
      * Act - do whatever the Snake wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    GreenfootSound snakeHiss = new GreenfootSound("snake hiss sound.mp3");
+    GreenfootImage[] tile = new GreenfootImage[4];
     public Snake()
     {
-        setImage("images/snake.png");
+        for (int i = 0; i < tile.length; i++)
+        {
+        tile[i] = new GreenfootImage("images/snake_tile/tile00" + i + ".png");
+        }
+        setImage(tile[0]);
     }
-    
+    int imageIndex = 0;
+    public void animateSnake()
+    {
+        setImage(tile[imageIndex]);
+        imageIndex = (imageIndex + 1) % tile.length;
+    }
+        
     public void act()
     {
         // Add your action code here.
@@ -28,7 +40,15 @@ public class Snake extends Actor
         {
             move(1);
         }
+        
+        eat();
+        animateSnake();
         //remove food if snake touch the food & spawn new food
+        
+    }
+    
+    public void eat()
+    {
         if(isTouching(Insect.class))
         {
             removeTouching(Insect.class);
