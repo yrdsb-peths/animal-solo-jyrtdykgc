@@ -6,6 +6,7 @@ public class MyWorld extends World {
     public int level = 1;
     public MyWorld() {
         super(600, 400, 1, false);
+        setBackground("images/background.png");
         Snake snake = new Snake();
         addObject(snake, 300, 300);
         label = new Label(0, 50);
